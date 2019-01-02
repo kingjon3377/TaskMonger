@@ -28,6 +28,10 @@ public class Task {
 	 * If this task is a proxy for one in another service, the URL where it can be found.
 	 */
 	private String upstreamURL = "";
+	/**
+	 * The current status of the task.
+	 */
+	private TaskStatus status = TaskStatus.Unscheduled;
 
 	/**
 	 * Main constructor.
@@ -78,6 +82,13 @@ public class Task {
 	}
 
 	/**
+	 * @return the current status of this task
+	 */
+	public TaskStatus getStatus() {
+		return status;
+	}
+
+	/**
 	 * @param name the new brief description for the task
 	 */
 	public void setName(final String name) {
@@ -106,6 +117,13 @@ public class Task {
 	}
 
 	/**
+	 * @param status the new status for the task
+	 */
+	public void setStatus(final TaskStatus status) {
+		this.status = status;
+	}
+
+	/**
 	 * @param obj another object
 	 * @return whether it is an identical Task
 	 */
@@ -115,7 +133,8 @@ public class Task {
 			return Objects.equals(name, ((Task) obj).name) &&
 					   Objects.equals(description, ((Task) obj).getDescription()) &&
 					   Objects.equals(estimate, ((Task) obj).estimate) &&
-					   Objects.equals(upstreamURL, ((Task) obj).upstreamURL);
+					   Objects.equals(upstreamURL, ((Task) obj).upstreamURL) &&
+					   Objects.equals(status, ((Task) obj).status);
 		} else {
 			return false;
 		}
@@ -126,6 +145,6 @@ public class Task {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, estimate, upstreamURL);
+		return Objects.hash(name, description, estimate, upstreamURL, status);
 	}
 }
