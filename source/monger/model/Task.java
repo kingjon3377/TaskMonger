@@ -20,6 +20,10 @@ public class Task {
 	 * A longer description of the task.
 	 */
 	private String description = "";
+	/**
+	 * How much time this task is estimated to take.
+	 */
+	private TimeEstimate estimate = TimeEstimate.Unestimated;
 
 	/**
 	 * Main constructor.
@@ -56,6 +60,13 @@ public class Task {
 	}
 
 	/**
+	 * @return how long this task is expected to take.
+	 */
+	public TimeEstimate getEstimate() {
+		return estimate;
+	}
+
+	/**
 	 * @param name the new brief description for the task
 	 */
 	public void setName(final String name) {
@@ -70,6 +81,13 @@ public class Task {
 	}
 
 	/**
+	 * @param estimate the new time estimate for the task
+	 */
+	public void setEstimate(final TimeEstimate estimate) {
+		this.estimate = estimate;
+	}
+
+	/**
 	 * @param obj another object
 	 * @return whether it is an identical Task
 	 */
@@ -77,7 +95,8 @@ public class Task {
 	public boolean equals(final Object obj) {
 		if (obj instanceof Task) {
 			return Objects.equals(name, ((Task) obj).name) &&
-					   Objects.equals(description, ((Task) obj).getDescription());
+					   Objects.equals(description, ((Task) obj).getDescription()) &&
+					   Objects.equals(estimate, ((Task) obj).estimate);
 		} else {
 			return false;
 		}
@@ -88,6 +107,6 @@ public class Task {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description);
+		return Objects.hash(name, description, estimate);
 	}
 }
