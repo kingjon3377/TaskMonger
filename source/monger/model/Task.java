@@ -24,6 +24,10 @@ public class Task {
 	 * How much time this task is estimated to take.
 	 */
 	private TimeEstimate estimate = TimeEstimate.Unestimated;
+	/**
+	 * If this task is a proxy for one in another service, the URL where it can be found.
+	 */
+	private String upstreamURL = "";
 
 	/**
 	 * Main constructor.
@@ -67,6 +71,13 @@ public class Task {
 	}
 
 	/**
+	 * @return the URL of the master location of this task, if any
+	 */
+	public String getUpstreamURL() {
+		return upstreamURL;
+	}
+
+	/**
 	 * @param name the new brief description for the task
 	 */
 	public void setName(final String name) {
@@ -88,6 +99,13 @@ public class Task {
 	}
 
 	/**
+	 * @param upstream the new upstream URL for the task
+	 */
+	public void setUpstreamURL(final String upstream) {
+		upstreamURL = upstream;
+	}
+
+	/**
 	 * @param obj another object
 	 * @return whether it is an identical Task
 	 */
@@ -96,7 +114,8 @@ public class Task {
 		if (obj instanceof Task) {
 			return Objects.equals(name, ((Task) obj).name) &&
 					   Objects.equals(description, ((Task) obj).getDescription()) &&
-					   Objects.equals(estimate, ((Task) obj).estimate);
+					   Objects.equals(estimate, ((Task) obj).estimate) &&
+					   Objects.equals(upstreamURL, ((Task) obj).upstreamURL);
 		} else {
 			return false;
 		}
@@ -107,6 +126,6 @@ public class Task {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, estimate);
+		return Objects.hash(name, description, estimate, upstreamURL);
 	}
 }
