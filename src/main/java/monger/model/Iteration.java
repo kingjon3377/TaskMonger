@@ -10,7 +10,7 @@ import java.util.UUID;
 import java.util.Comparator;
 
 /**
- * An "iteration" or "sprint"---a period to which tasks can be assigned. Iterations in which tasks are actually worked
+ * An "iteration" or "sprint"---a span of time to which tasks can be assigned. Iterations in which tasks are actually worked
  * on should have start and end dates, but "iterations" without dates can be used as just task-containing "buckets"
  * for planning purposes.
  */
