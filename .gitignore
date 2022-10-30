@@ -1,4 +1,7 @@
+syntax: glob
 .idea/workspace.xml
 dependency-reduced-pom.xml
 *.class
-target/*
+.*.swp
+.*.swo
+target
