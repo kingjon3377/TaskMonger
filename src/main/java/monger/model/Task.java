@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
 /**
  * A task in the system. TODO: Convert to interface?
  *
+ * TODO: List of dependencies/blockers?
+ *
  * @author Jonathan Lovelace
  */
 public class Task {
