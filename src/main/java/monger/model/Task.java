@@ -3,6 +3,7 @@ package monger.model;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A task in the system. TODO: Convert to interface?
@@ -142,7 +143,7 @@ public class Task {
 	 * @return whether it is an identical Task
 	 */
 	@Override
-	public boolean equals(final Object obj) {
+	public boolean equals(final @Nullable Object obj) {
 		if (obj instanceof Task) {
 			return Objects.equals(identifier, ((Task) obj).identifier) && Objects.equals(name, ((Task) obj).name) &&
 					   Objects.equals(description, ((Task) obj).getDescription()) &&
