@@ -96,5 +96,15 @@
       <artifactId>picocli</artifactId>
       <version>4.7.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.xerial</groupId>
+      <artifactId>sqlite-jdbc</artifactId>
+      <version>3.36.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jenetics</groupId>
+      <artifactId>facilejdbc</artifactId>
+      <version>2.0.0</version>
+    </dependency>
   </dependencies>
 </project>
