@@ -19,4 +19,11 @@ public enum TaskStatus {
 	TaskStatus(final @NotNull String description) {
 		this.description = description;
 	}
+
+	/**
+	 * @return a user-visible description of the estimate
+	 */
+	public @NotNull String getDescription() {
+		return description;
+	}
 }
