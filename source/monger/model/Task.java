@@ -5,11 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 /**
- * A task in the system.
- *
- * TODO: We need to have an ID field, and a way (probably injected) of generating them
- *
- * TODO: Convert to interface?
+ * A task in the system. TODO: Convert to interface?
  *
  * @author Jonathan Lovelace
  */
@@ -36,23 +32,39 @@ public class Task {
 	private @NotNull TaskStatus status = TaskStatus.Unscheduled;
 
 	/**
+	 * An identifier for the task. TODO: Need some way of generating IDs for purely-local tasks
+	 */
+	private final @NotNull TaskIdentifier identifier;
+
+	/**
 	 * Main constructor.
 	 *
+	 * @param identifier the identifier for the task
 	 * @param name the brief description of the task.
 	 */
-	public Task(final @NotNull String name) {
+	public Task(final @NotNull TaskIdentifier identifier, final @NotNull String name) {
+		this.identifier = identifier;
 		this.name = name;
 	}
 
 	/**
 	 * Fuller constructor.
 	 *
+	 * @param identifier the identifier for the task
 	 * @param name        the brief description of the task
 	 * @param description a longer description of the task
 	 */
-	public Task(final @NotNull String name, final @NotNull String description) {
+	public Task(final @NotNull TaskIdentifier identifier, final @NotNull String name, final @NotNull String description) {
+		this.identifier = identifier;
 		this.name = name;
 		this.description = description;
+	}
+
+	/**
+	 * @return the identifier for the task
+	 */
+	public @NotNull TaskIdentifier getIdentifier() {
+		return identifier;
 	}
 
 	/**
@@ -132,7 +144,7 @@ public class Task {
 	@Override
 	public boolean equals(final Object obj) {
 		if (obj instanceof Task) {
-			return Objects.equals(name, ((Task) obj).name) &&
+			return Objects.equals(identifier, ((Task) obj).identifier) && Objects.equals(name, ((Task) obj).name) &&
 					   Objects.equals(description, ((Task) obj).getDescription()) &&
 					   Objects.equals(estimate, ((Task) obj).estimate) &&
 					   Objects.equals(upstreamURL, ((Task) obj).upstreamURL) &&
@@ -143,10 +155,11 @@ public class Task {
 	}
 
 	/**
+	 * TODO: Maybe just use identifier.hashCode()?
 	 * @return a hash value for this object.
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, description, estimate, upstreamURL, status);
+		return Objects.hash(identifier, name, description, estimate, upstreamURL, status);
 	}
 }
