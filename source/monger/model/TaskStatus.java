@@ -1,5 +1,7 @@
 package monger.model;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The possible states a task might be in.
  *
@@ -13,8 +15,8 @@ public enum TaskStatus {
 	/**
 	 * A description of the status.
 	 */
-	private final String description;
-	TaskStatus(final String description) {
+	private final @NotNull String description;
+	TaskStatus(final @NotNull String description) {
 		this.description = description;
 	}
 }

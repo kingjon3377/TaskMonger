@@ -1,5 +1,7 @@
 package monger.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -15,30 +17,30 @@ public class Task {
 	/**
 	 * A brief description of the task.
 	 */
-	private String name;
+	private @NotNull String name;
 	/**
 	 * A longer description of the task.
 	 */
-	private String description = "";
+	private @NotNull String description = "";
 	/**
 	 * How much time this task is estimated to take.
 	 */
-	private TimeEstimate estimate = TimeEstimate.Unestimated;
+	private @NotNull TimeEstimate estimate = TimeEstimate.Unestimated;
 	/**
 	 * If this task is a proxy for one in another service, the URL where it can be found.
 	 */
-	private String upstreamURL = "";
+	private @NotNull String upstreamURL = "";
 	/**
 	 * The current status of the task.
 	 */
-	private TaskStatus status = TaskStatus.Unscheduled;
+	private @NotNull TaskStatus status = TaskStatus.Unscheduled;
 
 	/**
 	 * Main constructor.
 	 *
 	 * @param name the brief description of the task.
 	 */
-	public Task(final String name) {
+	public Task(final @NotNull String name) {
 		this.name = name;
 	}
 
@@ -48,7 +50,7 @@ public class Task {
 	 * @param name        the brief description of the task
 	 * @param description a longer description of the task
 	 */
-	public Task(final String name, final String description) {
+	public Task(final @NotNull String name, final @NotNull String description) {
 		this.name = name;
 		this.description = description;
 	}
@@ -56,70 +58,70 @@ public class Task {
 	/**
 	 * @return a brief description of the task
 	 */
-	public String getName() {
+	public @NotNull String getName() {
 		return name;
 	}
 
 	/**
 	 * @return a fuller description of the task
 	 */
-	public String getDescription() {
+	public @NotNull String getDescription() {
 		return description;
 	}
 
 	/**
 	 * @return how long this task is expected to take.
 	 */
-	public TimeEstimate getEstimate() {
+	public @NotNull TimeEstimate getEstimate() {
 		return estimate;
 	}
 
 	/**
 	 * @return the URL of the master location of this task, if any
 	 */
-	public String getUpstreamURL() {
+	public @NotNull String getUpstreamURL() {
 		return upstreamURL;
 	}
 
 	/**
 	 * @return the current status of this task
 	 */
-	public TaskStatus getStatus() {
+	public @NotNull TaskStatus getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param name the new brief description for the task
 	 */
-	public void setName(final String name) {
+	public void setName(final @NotNull String name) {
 		this.name = name;
 	}
 
 	/**
 	 * @param description the new full description of the task
 	 */
-	public void setDescription(final String description) {
+	public void setDescription(final @NotNull String description) {
 		this.description = description;
 	}
 
 	/**
 	 * @param estimate the new time estimate for the task
 	 */
-	public void setEstimate(final TimeEstimate estimate) {
+	public void setEstimate(final @NotNull TimeEstimate estimate) {
 		this.estimate = estimate;
 	}
 
 	/**
 	 * @param upstream the new upstream URL for the task
 	 */
-	public void setUpstreamURL(final String upstream) {
+	public void setUpstreamURL(final @NotNull String upstream) {
 		upstreamURL = upstream;
 	}
 
 	/**
 	 * @param status the new status for the task
 	 */
-	public void setStatus(final TaskStatus status) {
+	public void setStatus(final @NotNull TaskStatus status) {
 		this.status = status;
 	}
 

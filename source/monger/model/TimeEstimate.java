@@ -1,5 +1,7 @@
 package monger.model;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The possible values a task's time-estimate field can be set to, to allow time budgeting
  * with some but not *too* much granularity.
@@ -64,7 +66,7 @@ public enum TimeEstimate {
 	/**
 	 * The user-visible description of the estimate.
 	 */
-	private final String description;
+	private final @NotNull String description;
 	/**
 	 * How many quarter-hour intervals this is equivalent to.
 	 */
@@ -72,14 +74,14 @@ public enum TimeEstimate {
 	/**
 	 * Constructor.
 	 */
-	TimeEstimate(final String description, final int budget) {
+	TimeEstimate(final @NotNull String description, final int budget) {
 		this.description = description;
 		this.budget = budget;
 	}
 	/**
 	 * @return a user-visible description of the estimate
 	 */
-	public String getDescription() {
+	public @NotNull String getDescription() {
 		return description;
 	}
 	/**
