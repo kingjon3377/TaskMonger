@@ -155,7 +155,7 @@ public class Task {
 	}
 
 	/**
-	 * TODO: Maybe just use identifier.hashCode()?
+	 * TODO: Maybe just use identifier.hashCode()? Especially since many of these are mutable.
 	 * @return a hash value for this object.
 	 */
 	@Override
