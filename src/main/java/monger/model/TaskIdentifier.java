@@ -9,8 +9,14 @@ import org.jetbrains.annotations.NotNull;
  */
 public record TaskIdentifier(@NotNull String provider, @NotNull String identifier) {
 	public TaskIdentifier {
-		if (identifier.isEmpty()) {
+		if (identifier.isEmpty()) { // FIXME: Should probably be isBlank instead
 			throw new IllegalArgumentException("identifier cannot be empty");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return provider.isBlank() ? identifier.trim() :
+				   "%s:%s".formatted(provider.trim(), identifier.trim());
 	}
 }
