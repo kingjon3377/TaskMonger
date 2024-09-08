@@ -1,3 +1,4 @@
 .idea/workspace.xml
 dependency-reduced-pom.xml
 *.class
+target/*
