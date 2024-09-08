@@ -32,7 +32,7 @@ public class TestPipeCLI {
 		tasks.assignToDate(task.getIdentifier(), LocalDate.parse("2024-09-13"));
 		final PipeCLI cli = new PipeCLI();
 		final String output = cli.listTasks(true, tasks, Collections.emptyList());
-		final String expected = "testing:id | name for testing | Unscheduled | Unestimated |  \n";
+		final String expected = "testing:id | name for testing | Unscheduled | Unestimated | test iteration | 2024-09-13\n";
 		assertEquals(expected, output, "Quiet list-all should produce expected output");
 	}
 	@Test
@@ -50,8 +50,8 @@ public class TestPipeCLI {
 		final PipeCLI cli = new PipeCLI();
 		final String output = cli.listTasks(false, tasks, Collections.emptyList());
 		final String expected = """
-			ID         | Name             | Status      | Estimate    | Description
-			testing:id | name for testing | Unscheduled | Unestimated |           \s
+			ID         | Name             | Status      | Estimate    | Iteration      | Scheduled\s
+			testing:id | name for testing | Unscheduled | Unestimated | test iteration | 2024-09-13
 			""";
 		assertEquals(expected, output, "Verbose list-all should produce expected output");
 	}

@@ -4,15 +4,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import monger.model.Iteration;
 import monger.model.Task;
 import monger.model.TaskDatabase;
 import monger.model.TaskIdentifier;
 import monger.persistence.PersistenceException;
 import monger.persistence.PersistenceHelper;
+import org.jetbrains.annotations.Nullable;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -64,6 +70,26 @@ public class PipeCLI implements Runnable {
 		TaskDatabase db = PersistenceHelper.readFromFile(databaseFile);
 		return listTasks(quiet, db, identifiers);
 	}
+	private static String iterationForList(@Nullable Iteration iteration) {
+		if (Objects.isNull(iteration)) {
+			return "<none>";
+		}
+		String name = iteration.getName();
+		if (Objects.isNull(name) || name.isBlank()) {
+			LocalDate startDate = iteration.getStartDate();
+			LocalDate endDate = iteration.getEndDate();
+			if (Objects.isNull(startDate)) {
+				return iteration.getId().toString().substring(0, 9);
+			} else if (Objects.isNull(endDate)) {
+				return startDate.format(DateTimeFormatter.ISO_DATE) + " on";
+			} else {
+				return "%s to %s".formatted(startDate.format(DateTimeFormatter.ISO_DATE),
+					endDate.format(DateTimeFormatter.ISO_DATE));
+			}
+		} else {
+			return name;
+		}
+	}
 	/**
 	 * Implementation, split out for automated-test purposes.
 	 */
@@ -72,10 +98,10 @@ public class PipeCLI implements Runnable {
 		int[] fieldLengths;
 		// FIXME: Need to include "Iteration" and "Scheduled" [date]
 		if (quiet) {
-			fieldLengths = new int[]{1, 1, 1, 1, 1};
+			fieldLengths = new int[]{1, 1, 1, 1, 1, 1};
 		} else {
 			// "ID", "Name", "Status", "Estimate", "Description"
-			fieldLengths = new int[]{2, 4, 6, 8, 11};
+			fieldLengths = new int[]{2, 4, 6, 8, 9, 9};
 		}
 		final List<List<String>> output = new ArrayList<>();
 		for (Task task : tasks.getTasks()) {
@@ -83,7 +109,10 @@ public class PipeCLI implements Runnable {
 				final List<String> line =
 					List.of(task.getIdentifier().toString(), task.getName(),
 						task.getStatus().toString(), task.getEstimate().toString(),
-						task.getDescription());
+						iterationForList(tasks.getIteration(task.getIdentifier())),
+						Optional.ofNullable(tasks.getAssignedDate(task.getIdentifier()))
+							.map(d -> d.format(DateTimeFormatter.ISO_DATE))
+							.orElse("<none>"));
 				for (int i = 0; i < Integer.min(fieldLengths.length, line.size()); i++) {
 					int fieldLength = line.get(i).length();
 					if (fieldLengths[i] < fieldLength) {
@@ -103,7 +132,7 @@ public class PipeCLI implements Runnable {
 			 PrintWriter out = new PrintWriter(retval)) {
 			if (!quiet) {
 				out.println(
-					format.formatted("ID", "Name", "Status", "Estimate", "Description"));
+					format.formatted("ID", "Name", "Status", "Estimate", "Iteration", "Scheduled"));
 			}
 			for (List<String> line : output) {
 				out.println(format.formatted(line.toArray()));

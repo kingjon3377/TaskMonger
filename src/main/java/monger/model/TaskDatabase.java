@@ -156,4 +156,12 @@ public class TaskDatabase {
 				   "\n\ttaskIterations=" + taskIterations +
 				   "\n\ttaskDates=" + taskDates;
 	}
+
+	/**
+	 * @param identifier The identifier for a task
+	 * @return The iteration, if any, to which that task is assigned.
+	 */
+	public @Nullable Iteration getIteration(final @NotNull TaskIdentifier identifier) {
+		return taskIterations.get(identifier);
+	}
 }
